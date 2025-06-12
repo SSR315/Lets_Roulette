@@ -19,13 +19,14 @@
       position: relative;
       width: 100%;
       max-width: 500px;
-      height: 300px;
+      height: auto;
       background: white;
       border: 2px solid #ccc;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      overflow: hidden; /*
     }
     canvas {
       display: block;
@@ -78,6 +79,12 @@
   </div>
 
   <script>
+    function resizeCanvas() {
+  const size = Math.min(canvas.parentElement.clientWidth, 500);
+  canvas.width = size;
+  canvas.height = size;
+  drawWheel();
+    }
     const canvas = document.getElementById("wheel");
     const ctx = canvas.getContext("2d");
     const radius = 225;
@@ -166,6 +173,8 @@
         deceleration();
       }
     }
+    window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); // 初回実行
 
     document.getElementById("sectionInput").addEventListener("input", drawWheel);
     drawWheel();
